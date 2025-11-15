@@ -1,7 +1,7 @@
 import '../App.css';
 import rodape from '../assets/fundo_rodape.png';
-import Rodapelogo from '../assets/rodape.logo.1.jpg';
-import Logorodape from '../assets/rodape.logo.1.png';
+import Rodapelogo from '../assets/rodape.logo.1.png';
+import Logorodape from '../assets/rodapelogo.jpg';
 export function Footer() {
     return (
         <footer>

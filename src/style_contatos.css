@@ -1,0 +1,445 @@
+@font-face {
+    font-family: 'minhafonte';
+    src: url("./assets/HastinaFreeFont.otf");
+}
+
+main{
+    flex:1;
+}
+
+/* Estilização BODY do site */
+body {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    font-family: 'minhafonte';
+    background-color: #f5f7fa;
+    display:flex;
+    flex-direction: column;
+    min-height: 100vh; 
+}
+body{
+    background: linear-gradient(white, #cfe9f3); /*Permite fazer o GRADIENTE*/
+}
+
+/* Estilização do header do site */
+header {
+    background-color: #071A3D;
+}
+
+/* ESTILIZAÇÃO DIV DO SITE */
+.divHeader {
+    position: relative;
+    margin: auto;
+    width: 80%;
+    padding-bottom: 10px;
+}
+
+.logo {
+    width: 5%;
+    margin: 10px 0 0 10px;
+    
+}
+
+/* ESTILIZAÇÃO MENU DO SITE */
+nav {
+    position: absolute;
+    top: 10px;
+    right: 150px;
+}
+
+nav li, nav a {
+    display: inline;
+    color: white;
+    font-size: 20px;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Container principal */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Título */
+.contatos-titulo {
+    font-size: 40px;
+    font-weight: bold;
+    color: #d4a373;
+    list-style: none;
+    font-family: 'minhafonte';
+    text-align: center;
+    padding: 0;
+    margin: 30px 0;
+}
+
+.contatos-item:before {
+    content: "🐚";
+    margin-right: 10px;
+}
+
+/* TEXTO TELA DE CONTATOS */
+.texto-contatos {
+    padding-left: 3%;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.5;
+    max-width: 70%;
+    width: 75vw;
+    margin: 20px auto 40px auto;
+}
+
+/* Formulário */
+#formulario {
+    background-color: #071A3D;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(7, 26, 61, 0.2);
+    padding-left: 10%;
+    padding-right: 10%;
+    max-width: 900px;
+    margin: 0 20px 0 20px;
+    color: white;
+    align-items: center;
+}
+
+#formulario .texto-contatos {
+    color: white;
+}
+
+form {
+    margin-top: 20px;
+    margin-left: 0;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+form label, form legend {
+    display: block;
+    font-size: 20px;
+    margin: 0 0 10px;
+    color: white;
+}
+
+fieldset {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-bottom: 20px;
+    border: 2px solid white;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin: 0 auto; /* centraliza */
+    
+}
+
+
+fieldset legend {
+    padding: 0 15px;
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.input-padrao,
+textarea,
+select {
+    width: 100%;
+    max-width: 100%;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: white;
+    color: #071A3D;
+    font-family: inherit;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+
+.input-padrao:focus {
+    border-color: #d4a373;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.2);
+}
+
+.radio-group {
+    margin: 15px 0;
+}
+
+.radio-group label {
+    display: inline;
+    margin-right: 15px;
+    color: white;
+}
+
+.chk {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.chk input {
+    margin-right: 10px;
+    transform: scale(1.2);
+    margin: 0 40px; /* centraliza */
+}
+
+
+select.input-padrao {
+    background-color: white;
+    color: #071A3D;
+    
+}
+
+.enviar {
+    display: block;
+    margin: 0 auto;
+    width: 200px; 
+    padding: 12px 0;
+    background-color: white;
+    color: #071A3D;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'minhafonte';
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.enviar:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+/* Div do retorno do formulário */
+.divRetorno {
+    display: none;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #e6f7ff;
+    border-left: 4px solid #071A3D;
+    max-width: 80%;
+    text-align: center;
+}
+
+.divRetorno p {
+    font-size: 24px;
+    margin: 0;
+}
+
+
+/*Estilizaçâo do footer*/
+footer{ 
+    background: url("./assets/rodapelogo.jpg") no-repeat;
+    background-size: 100%;
+    background-position: top;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-blend-mode: blue;
+    padding: 20px 10px 10px 0;
+}
+
+footer i{
+    color: #f4f5f7;
+}
+
+footer p{
+    color: #fbfdff;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: right;
+    margin: 0;
+    padding: 0 10px 20px 0;
+}
+
+.logo_footer{
+    width: 8%;
+    margin-left: 84%;
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .divHeader {
+        width: 95%;
+    }
+
+    nav {
+        position: static;
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .logo {
+        width: 15%;
+        display: block;
+        margin: 10px auto;
+    }
+
+    fieldset {
+        width: 85%;
+        padding: 15px;
+    }
+
+    .enviar {
+        width: 80%;
+    }
+
+    .logo_footer {
+        width: 20%;
+        margin-left: 75%;
+    }
+
+    .texto-contatos {
+        width: 90vw;
+        max-width: 90%;
+    }
+}
+
+
+
+/* Formulário */
+#formulario {
+    background-color: #071A3D;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(7, 26, 61, 0.2);
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    color: white;
+}
+
+#formulario .texto-contatos {
+    color: white;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form label, form legend {
+    display: block;
+    font-size: 20px;
+    margin: 0 0 10px;
+    color: white;
+}
+
+fieldset {
+    width: 90%;
+    padding: 25px;
+    margin-bottom: 2%;
+    border: 2px solid white;
+    border-radius: 8px;
+}
+
+fieldset legend {
+    padding: 0 15px;
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.radio-group {
+    margin: 15px 0;
+}
+
+.radio-group label {
+    display: inline;
+    margin-right: 15px;
+    color: white;
+}
+
+.chk {
+    margin: 20px 0px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.chk input {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+select.input-padrao {
+    background-color: white;
+    color: #071A3D;
+}
+
+.enviar {
+    width: 40%;
+    padding: 15px 0;
+    margin: 20px 0;
+    background-color: white;
+    color: #071A3D;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-family: 'minhafonte';
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.enviar:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+/* Div do retorno do formulário */
+.divRetorno {
+    display: none;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #e6f7ff;
+    border-left: 4px solid #071A3D;
+    max-width: 80%;
+    text-align: center;
+}
+
+.divRetorno p {
+    font-size: 24px;
+    margin: 0;
+}
+
+/* Estilização do footer */
+footer{ 
+    background: url("./assets/rodapelogo.jpg") no-repeat;
+    background-size: 100%;
+    background-position: top;
+    background-color: transparent;
+    padding: 20px 10px 10px 0;
+}
+
+footer i{
+    color: #f4f5f7;
+}
+
+footer p{
+    color: #fbfdff;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: right;
+    margin: 0;
+    padding: 0 10px 20px 0;
+}
+
+.logo_footer{
+    width: 8%;
+    margin-left: 84%;
+}
+
+

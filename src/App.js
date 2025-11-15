@@ -4,6 +4,7 @@ import {Header} from './componentes/Header';
 import {Banner} from './componentes/Banner';
 import {SobreNos} from './componentes/Sobre_nos';
 import {Footer} from './componentes/Footer';
+import {Contato} from './componentes/Contato';
 
 
 export default function App() {
@@ -11,8 +12,10 @@ export default function App() {
     <>
       <Header />
       <Banner />
-      <SobreNos/>
+      <SobreNos/>;
+      <Contato />
       <Footer />
+    
     </>
   );
 }
