@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../App.css';
 import logo from '../assets/logo.png';
 
-export function Header() {
+function Header() {
     const [menuAberto, setMenuAberto] = useState(false);
 
     const alternarMenu = () => {
@@ -35,5 +35,7 @@ export function Header() {
         </header>
     );
 }
+
+export default Header;
 
 

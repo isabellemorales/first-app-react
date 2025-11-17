@@ -80,7 +80,6 @@ nav.menu a {
 /* SOBRE NÓS - Estilização*/
 .sobrenos {
     margin: 1;
-    background-color: white;
     text-align: justify;
     margin: auto;
     width: 50%;
@@ -117,7 +116,6 @@ nav.menu a {
     justify-content: center;
     margin: 150px;
     text-align: center;
-    background-color: white;
 }
 
 /*Imagem do sobre nós*/

@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'minhafonte';
-    src: url("./assets/HastinaFreeFont.otf");
+    src: url("../assets/HastinaFreeFont.otf");
 }
 
-main{
-    flex:1;
+main {
+    flex: 1;
 }
 
 /* Estilização BODY do site */
@@ -14,12 +14,14 @@ body {
     border: 0;
     font-family: 'minhafonte';
     background-color: #f5f7fa;
-    display:flex;
+    display: flex;
     flex-direction: column;
-    min-height: 100vh; 
+    min-height: 100vh;
 }
-body{
-    background: linear-gradient(white, #cfe9f3); /*Permite fazer o GRADIENTE*/
+
+body {
+    background: linear-gradient(white, #cfe9f3);
+    /*Permite fazer o GRADIENTE*/
 }
 
 /* Estilização do header do site */
@@ -38,7 +40,7 @@ header {
 .logo {
     width: 5%;
     margin: 10px 0 0 10px;
-    
+
 }
 
 /* ESTILIZAÇÃO MENU DO SITE */
@@ -48,7 +50,8 @@ nav {
     right: 150px;
 }
 
-nav li, nav a {
+nav li,
+nav a {
     display: inline;
     color: white;
     font-size: 20px;
@@ -119,7 +122,8 @@ form {
     width: 100%;
 }
 
-form label, form legend {
+form label,
+form legend {
     display: block;
     font-size: 20px;
     margin: 0 0 10px;
@@ -135,8 +139,9 @@ fieldset {
     border: 2px solid white;
     border-radius: 8px;
     box-sizing: border-box;
-    margin: 0 auto; /* centraliza */
-    
+    margin: 0 auto;
+    /* centraliza */
+
 }
 
 
@@ -190,20 +195,21 @@ select {
 .chk input {
     margin-right: 10px;
     transform: scale(1.2);
-    margin: 0 40px; /* centraliza */
+    margin: 0 40px;
+    /* centraliza */
 }
 
 
 select.input-padrao {
     background-color: white;
     color: #071A3D;
-    
+
 }
 
 .enviar {
     display: block;
     margin: 0 auto;
-    width: 200px; 
+    width: 200px;
     padding: 12px 0;
     background-color: white;
     color: #071A3D;
@@ -240,8 +246,8 @@ select.input-padrao {
 
 
 /*Estilizaçâo do footer*/
-footer{ 
-    background: url("./assets/rodapelogo.jpg") no-repeat;
+footer {
+    background: url("../assets/rodapelogo.jpg") no-repeat;
     background-size: 100%;
     background-position: top;
     background-color: rgba(0, 0, 0, 0.3);
@@ -249,11 +255,11 @@ footer{
     padding: 20px 10px 10px 0;
 }
 
-footer i{
+footer i {
     color: #f4f5f7;
 }
 
-footer p{
+footer p {
     color: #fbfdff;
     font-weight: bold;
     font-size: 20px;
@@ -262,7 +268,7 @@ footer p{
     padding: 0 10px 20px 0;
 }
 
-.logo_footer{
+.logo_footer {
     width: 8%;
     margin-left: 84%;
 }
@@ -329,7 +335,8 @@ form {
     align-items: center;
 }
 
-form label, form legend {
+form label,
+form legend {
     display: block;
     font-size: 20px;
     margin: 0 0 10px;
@@ -416,19 +423,19 @@ select.input-padrao {
 }
 
 /* Estilização do footer */
-footer{ 
-    background: url("./assets/rodapelogo.jpg") no-repeat;
+footer {
+    background: url("../assets/fundo_rodape.png") no-repeat;
     background-size: 100%;
     background-position: top;
     background-color: transparent;
     padding: 20px 10px 10px 0;
 }
 
-footer i{
+footer i {
     color: #f4f5f7;
 }
 
-footer p{
+footer p {
     color: #fbfdff;
     font-weight: bold;
     font-size: 20px;
@@ -437,9 +444,7 @@ footer p{
     padding: 0 10px 20px 0;
 }
 
-.logo_footer{
+.logo_footer {
     width: 8%;
     margin-left: 84%;
 }
-
-
