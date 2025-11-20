@@ -10,10 +10,12 @@ body {
     margin: 0;
     border: 0;
     font-family: 'minhafonte';
+    background: linear-gradient( #ffffff 0%, #0d2a47 100%); /* Gradiente suave do branco ao azul claro do rodapé */
+    min-height: 100vh;
 }
 
 .logo {
-    width: 005%;
+    width: 5%;
     margin: 10px 0 0 10px;
 }
 
@@ -27,7 +29,7 @@ header {
     margin: auto;
     width: 100%;
     align-items: center;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
     display: flex;
     /* espaçamento baixo*/
 }
@@ -69,76 +71,7 @@ nav.menu a {
     width: 100%
 }
 
-/*BANNER - Estilização */
 
-.banner {
-    width: 100%;
-    height: fit-content;
-}
-
-
-/* SOBRE NÓS - Estilização*/
-.sobrenos {
-    margin: 1;
-    text-align: justify;
-    margin: auto;
-    width: 50%;
-    margin-left: 20%;
-}
-
-.titulo_sobrenos {
-    clear: left;
-    text-align: center;
-    font-size: 32px;
-    color: #8b4513;
-}
-
-.titulo_sobrenos {
-    color: #d4a373;
-    transition: 1s;
-    cursor: pointer;
-}
-
-.para_sobre {
-    font-size: 90px;
-}
-
-.texto_diferente {
-    color: #071A3D;
-    font-weight: bold;
-    font-style: italic;
-    text-decoration: underline;
-}
-
-.container_sobre {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 150px;
-    text-align: center;
-}
-
-/*Imagem do sobre nós*/
-.img_sobrenos {
-    width: 400px;
-    float: left;
-    margin: 0 20px;
-    height: 500px;
-    border-top-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.3);
-}
-
-.img_sobrenos:hover {
-    transform: translateY(-30px);
-    transition: 1s all;
-}
-
-.para_sobre {
-    padding: 0 140px 50px 140px;
-    font-size: 18px;
-    text-align: justify;
-}
 
 /* FOOTER - Estilização */
 footer {
@@ -175,8 +108,11 @@ footer p {
         padding: 20px;
     }
 
+    /* Logo maior em mobile para o menu hamburguer */
     .logo {
-        width: 40%;
+        width: 140px;
+        height: auto;
+        margin: 6px 12px;
     }
 
     .menu-toggle {

@@ -1,0 +1,53 @@
+/* BANNER - Estilização*/
+
+/* Container do banner - envolve a imagem */
+.banner-container {
+  width: 100%; 
+  overflow: hidden; /* Evita conteúdo de sair da tela */
+  display: block; 
+}
+
+/* Estilo da imagem do banner */
+.banner {
+  width: 100%; 
+  height: auto; 
+  display: block; /* Remove espaço embaixo da imagem em alguns navegadores */
+  max-width: 100%; /* Garante que não ultrapasse 100% */
+}
+
+/*  RESPONSIVIDADE - Telas pequenas*/
+@media (max-width: 768px) {
+  .banner {
+    width: 100%; 
+    height: auto; /* Mantém proporção */
+    margin: 0; 
+  }
+  
+  .banner-container {
+    padding: 0; /* Remove padding em mobile */
+  }
+}
+
+/* RESPONSIVIDADE - Telas médias)  */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .banner {
+    width: 100%;
+    height: auto;
+    max-height: 500px; /* Limita altura em tablets */
+    object-fit: cover; /* Mantém proporção sem distorção */
+  }
+}
+
+/* RESPONSIVIDADE - Telas grandes (Desktop - acima de 1025px) */
+@media (min-width: 1025px) {
+  .banner {
+    width: 100%;
+    height: auto;
+    max-height: 600px; /* Altura máxima em desktop */
+    object-fit: cover; /* preenche sem distorcer */
+  }
+  
+  .banner-container {
+    margin-bottom: 2rem; 
+  }
+}

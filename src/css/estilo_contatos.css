@@ -5,6 +5,8 @@
 
 main {
     flex: 1;
+    background: transparent;
+    /* Herda o gradiente do body */
 }
 
 /* Estilização BODY do site */
@@ -422,29 +424,3 @@ select.input-padrao {
     margin: 0;
 }
 
-/* Estilização do footer */
-footer {
-    background: url("../assets/fundo_rodape.png") no-repeat;
-    background-size: 100%;
-    background-position: top;
-    background-color: transparent;
-    padding: 20px 10px 10px 0;
-}
-
-footer i {
-    color: #f4f5f7;
-}
-
-footer p {
-    color: #fbfdff;
-    font-weight: bold;
-    font-size: 20px;
-    text-align: right;
-    margin: 0;
-    padding: 0 10px 20px 0;
-}
-
-.logo_footer {
-    width: 8%;
-    margin-left: 84%;
-}

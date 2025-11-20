@@ -169,14 +169,6 @@ function Contato() {
                     </form>
                 </div>
             </main>
-
-            {/* Rodapé do site */}
-            <footer>
-                <p>
-                    Encomendas on-line: <a href="https://wa.me/5511948880090" aria-label="WhatsApp"><i className="fa fa-whatsapp"></i></a> (11) 94888-0090 |{' '}
-                    <a href="https://www.instagram.com/imp" aria-label="Instagram"><i className="fa fa-instagram"></i></a> @imp
-                </p>
-            </footer>
         </div>
     );
 }

@@ -1,74 +1,89 @@
 @font-face {
-    font-family:'minhafonte';
-    src:url("../assets/HastinaFreeFont.otf");
+    font-family: 'minhafonte';
+    src: url("../assets/HastinaFreeFont.otf");
 }
 
 /*Estilização BODY do site*/
-body{
+body {
     margin: 0;
     border: 0;
-    font-family:'minhafonte';
+    font-family: 'minhafonte';
 }
 
-.logo{
+.logo {
     width: 5%;
     margin: 10px 0 0 10px;
 }
+
 /*Estilização do header do site*/
-header{
+header {
     background-color: #071A3D;
 }
+
 /*ESTILIZAÇÃO DIV DO SITE*/
-.divHeader{
+.divHeader {
     position: relative;
     margin: auto;
     width: 80%;
-    padding-bottom: 10px; /* espaçamento baixo*/
+    padding-bottom: 10px;
+    /* espaçamento baixo*/
 
 }
+
 /*ESTILIZAÇÃO MENU DO SITE*/
 nav {
     position: absolute;
     top: 10px;
     right: 150px;
 }
-nav li, nav a{
+
+nav li,
+nav a {
     display: inline;
     color: white;
     font-size: 20px;
     margin-right: 20px;
 }
 
-.banner{
+.banner {
     width: 100%;
     height: 300px;
-    object-fit: cover; /*CObject-fit  serve para que a imagem fique adequada sem estar achatada*/
+    object-fit: cover;
+    /*CObject-fit  serve para que a imagem fique adequada sem estar achatada*/
 }
 
 /*Título*/
-.produtos-titulo{
+.produtos-titulo {
     font-size: 40px;
     font-weight: bold;
     color: #d4a373;
     list-style: none;
     font-family: 'minhafonte';
-    text-align: center; /* Centraliza o texto dentro do contêiner */
+    text-align: center;
+    /* Centraliza o texto dentro do contêiner */
 }
 
-.produtos-item:before{
+.produtos-item:before {
     content: "🐚";
-        margin-right: 10px;
+    margin-right: 10px;
 
 }
 
+.produtos-item:before {
+    content: "🐚";
+    margin-right: 10px;
+}
 
 /* Texto dos Produtos */
-.texto-produtos{
+.texto-produtos {
     padding-left: 03%;
-    text-align:center; 
-    font-size: 18px; /* Tamanho do texto*/
-    line-height: 1; /* Aumenta o espaçamento entre as linhas*/
-    max-width: 70%; /* Limita a largura do texto */
+    text-align: center;
+    font-size: 18px;
+    /* Tamanho do texto*/
+    line-height: 1;
+    /* Aumenta o espaçamento entre as linhas*/
+    max-width: 70%;
+    /* Limita a largura do texto */
     margin-left: 0%;
     width: 75vw;
     margin: 20px auto 40px auto;
@@ -78,34 +93,37 @@ nav li, nav a{
 /* Container dos cards */
 .container {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
-    grid-template-rows: repeat(2,1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     place-items: center;
     width: 70vw;
     margin: auto;
-    gap: 40px; 
+    gap: 40px;
     padding-bottom: 50px;
 }
 
-main{
-    background: linear-gradient(white, white, white, #dbecf3); /*Permite fazer o GRADIENTE*/
+main {
+    background: transparent;
+    /* Herda o gradiente do body */
 }
+
 /* Estilização dos cards*/
 .card {
     background: #FFFFFF;
     width: 280px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
     text-align: center;
     transition: transform 0.3s ease-in-out;
-} 
+}
 
-.card:hover{
+.card:hover {
     transform: scale(1.05);
 }
+
 /* Imagens */
-.card img{
+.card img {
     width: 100%;
     height: 180px;
     object-fit: cover;
@@ -114,12 +132,14 @@ main{
     max-height: 100%;
     display: grid;
 }
+
 /* Título */
-.card h2{
+.card h2 {
     margin: 10px 0;
 }
+
 /* Preço */
-.preco{
+.preco {
     font-size: 18px;
     font-weight: bold;
     color: #27ae60;
@@ -127,7 +147,7 @@ main{
 }
 
 /*Estilizaçâo do footer*/
-footer{ 
+footer {
     background: url("../assets/fundo_rodape.png") no-repeat;
     background-size: 100%;
     background-position: top;
@@ -136,11 +156,11 @@ footer{
     padding: 20px 10px 10px 0;
 }
 
-footer i{
+footer i {
     color: #f4f5f7;
 }
 
-footer p{
+footer p {
     color: #fbfdff;
     font-weight: bold;
     font-size: 20px;
@@ -149,8 +169,7 @@ footer p{
     padding: 0 10px 20px 0;
 }
 
-.logo_footer{
+.logo_footer {
     width: 8%;
     margin-left: 84%;
 }
-

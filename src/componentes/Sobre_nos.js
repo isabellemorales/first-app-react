@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 import EstiloDeVida from '../assets/estilodevida.jpg';
+import "../css/estilo_sobrenos.css";
 
 function SobreNos() {
     return (
