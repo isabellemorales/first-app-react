@@ -1,174 +1,312 @@
-// --- ÁREA DE IMPORTAÇÕES (Página 35 do PDF) ---
-// Importamos o React e o hook useState para gerenciar o estado da aplicação (Página 45).
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'; // Importa Link para rotas SPA
+import '../App.css'; // Importa seu CSS principal
 
-// Importamos os arquivos de estilo CSS diretamente no componente.
-import './css/estilos_contatos.css';
-import './css/estilos_encomendas.css';
 
-// Importamos as imagens como se fossem variáveis para usar no 'src' (Página 40).
-// Nota: Assumindo que as imagens estão na pasta 'assets' ou similar.
-import logoImg from './img/logo.png.png';
-import logoFooter from './img/logo.rodape.png';
+// Utilitário para formatar moeda em R$ (pt-BR)
+function Encomenda(valor) {
+  if (typeof valor !== 'number' || Number.isNaN(valor)) return '—'
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(valor)
+}
 
-// --- DEFINIÇÃO DO COMPONENTE (Página 36 do PDF) ---
-// Criamos uma função exportada que representa nossa página/componente.
-export default function Encomendas() {
+// Converte string para número (aceita vírgula) ou retorna null se inválido
+function toNumberOrNull(v) {
+  const n = Number(String(v).replace(',', '.'))
+  return Number.isFinite(n) ? n : null
+}
 
-    // (Opcional) Aqui poderíamos usar o useState para tornar a tabela dinâmica (Página 45),
-    // substituindo as linhas "hardcoded" (fixas) da tabela por dados reais.
-    // const [listaEncomendas, setListaEncomendas] = useState([...]);
+// Gera um ID simples (para usar como key no React)
+function novaId() {
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+}
 
-    // O 'return' contém o JSX, que é a estrutura visual da página.
-    return (
-        // React precisa de um elemento pai envolvendo tudo, geralmente uma div ou Fragment (<>).
-        // A tag <head> e <body> não são usadas aqui dentro, pois o React é injetado dentro do body.
-        <div className="site-container">
+export default function App() {
+  // Estado com as encomendas iniciais (iguais às do seu HTML; onde tinha "n", usamos null)
+  const [encomendas, setEncomendas] = useState([
+    {
+      id: novaId(),
+      nome: 'Bárbara',
+      produto: 'Body (2 peças) - Preto com fivela dourada',
+      quantidade: 2,
+      valorUnitario: 200
+    },
+    {
+      id: novaId(),
+      nome: 'Júlia',
+      produto: 'Saia Envelope (3 peças) - Branca',
+      quantidade: null, // no HTML estava "n"
+      valorUnitario: 150
+    },
+    {
+      id: novaId(),
+      nome: 'Isabela',
+      produto: 'Brinco dourado madreperóla (1 peça) - Preto com fivela dourada',
+      quantidade: 1,
+      valorUnitario: null // no HTML estava "n"
+    },
+    {
+      id: novaId(),
+      nome: 'Amanda',
+      produto: 'Biquínis (5 peças) - Branco com fivela',
+      quantidade: 5,
+      valorUnitario: 185
+    }
+  ])
 
-            {/* --- HEADER (Página 38/40 - Exemplo de Componente Header) --- */}
-            <header>
-                {/* Em JSX, usamos 'className' em vez de 'class' para evitar conflito com JS (Página 50) */}
-                <div className="divHeader">
-                    
-                    {/* Tags de imagem precisam ser fechadas com '/>' no final (Página 24) */}
-                    {/* Usamos a variável importada 'logoImg' dentro de chaves {} */}
-                    <img src={logoImg} title="imp" className="logo" alt="Logo IMP" />
+  // IDs que estão em animação de remoção (.fadeOut)
+  const [removendo, setRemovendo] = useState(new Set())
 
-                    <nav> 
-                        <ul>
-                            {/* Links internos em React geralmente usam <Link>, mas mantive <a> conforme o HTML original */}
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="produtos.html">Produtos</a></li>
-                            <li>Contato</li>
-                            <li>|</li>
-                            <li><a href="encomendas.html">Encomendas</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
+  // Estado do campo de busca
+  const [busca, setBusca] = useState('')
 
-            {/* --- CONTEÚDO PRINCIPAL --- */}
-            <main>
-                <ul className="encomendas-titulo">
-                    <li className="encomendas-item">Encomendas</li>
-                </ul>
+  // Estado do formulário
+  const [form, setForm] = useState({
+    nome: '',
+    quantidade: '',
+    produto: '',
+    valorUnitario: ''
+  })
 
-                {/* Labels usam 'htmlFor' em vez de 'for' no JSX */}
-                <label htmlFor="buscar">Buscar</label>
-                {/* Input precisa ser fechado com '/>' */}
-                <input type="text" name="buscar" id="buscar" placeholder="Digite o nome do cliente"/> 
+  // Filtra encomendas pelo nome (case-insensitive)
+  const filtradas = useMemo(() => {
+    const q = busca.trim().toLowerCase()
+    if (!q) return encomendas
+    return encomendas.filter((e) => e.nome.toLowerCase().includes(q))
+  }, [busca, encomendas])
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Produto</th>
-                            <th>Quantidade</th>
-                            <th>Valor Unitário</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    {/* 'className' aplicado novamente no lugar de 'class' */}
-                    <tbody className="tabela-clientes">
-                        {/* Linha da Tabela 1 */}
-                        <tr className="cliente">
-                            <td className="nome">Bárbara</td>
-                            <td className="peoduto">Body (2 peças) - Preto com fivela dourada </td>
-                            <td className="qtde">2</td>
-                            <td className="unitario">200</td>
-                            <td className="total"></td>
-                        </tr>
+  // Cálculo do total por linha (retorna "—" se faltar dado numérico)
+  const totalItem = (q, u) => {
+    if (typeof q !== 'number' || typeof u !== 'number') return '—'
+    return moedaBRL(q * u)
+  }
 
-                        {/* Linha da Tabela 2 */}
-                        <tr className="cliente">
-                            <td className="nome">Júlia</td>
-                            <td className="peoduto"> Saia Envelope (3 peças) - Branca </td>
-                            <td className="qtde">n</td>
-                            <td className="unitario">150 </td>
-                            <td className="total"></td>
-                        </tr>
+  // Atualiza o formulário a cada digitação
+  const handleFormChange = (e) => {
+    const { name, value } = e.target
+    setForm((prev) => ({ ...prev, [name]: value }))
+  }
 
-                        {/* Linha da Tabela 3 */}
-                        <tr className="cliente">
-                            <td className="nome">Isabela</td>
-                            <td className="peoduto"> Brinco dourado madreperóla (1 peça) - Preto com fivela dourada </td>
-                            <td className="qtde">1</td>
-                            <td className="unitario">n{/* Comentários dentro do JSX são assim: chaves e barra-asterisco */}</td>
-                            <td className="total"></td>
-                        </tr>
+  // Adiciona nova encomenda
+  const handleAdd = (e) => {
+    e.preventDefault()
 
-                        {/* Linha da Tabela 4 */}
-                        <tr className="cliente">
-                            <td className="nome">Amanda</td>
-                            <td className="peoduto"> Biquínis (5 peças) - Branco com fivela </td>
-                            <td className="qtde">5</td>
-                            <td className="unitario">185</td>
-                            <td className="total"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                {/* Botão com className. Eventos seriam onClick={funcao} em vez de id para scripts externos */}
-                <button id="api-encomenda" className="botao enviar">Buscar da API</button>
+    if (!form.nome || !form.produto) {
+      alert('Preencha ao menos Nome e Produto.')
+      return
+    }
 
-                <ul className="encomendas-titulo">
-                    <li className="encomendas-item">Adicionar Encomendas</li>
-                </ul>
-            </main>
+    const nova = {
+      id: novaId(),
+      nome: form.nome.trim(),
+      produto: form.produto.trim(),
+      quantidade: form.quantidade !== '' ? toNumberOrNull(form.quantidade) : null,
+      valorUnitario: form.valorUnitario !== '' ? toNumberOrNull(form.valorUnitario) : null
+    }
 
-            {/* --- FORMULÁRIO --- */}
-            <form id="form-adicionar">
-                <fieldset>
-                    <legend> Dados da Encomenda</legend>
+    setEncomendas((prev) => [...prev, nova])
+    setForm({ nome: '', quantidade: '', produto: '', valorUnitario: '' })
+  }
 
-                    <label htmlFor="nome">Nome</label>
-                    {/* Input fechado corretamente e 'required' é um booleano, mas pode ficar assim */}
-                    <input type="text" id="nome" name="nome" className="input-padrao" required 
-                        placeholder="Digite o nome da(o) cliente" />
+  // Remove uma encomenda com animação .fadeOut
+  const handleDelete = (id) => {
+    // Marca como "removendo" para aplicar a classe .fadeOut
+    setRemovendo((prev) => new Set(prev).add(id))
 
-                    <label htmlFor="quantidade">Quantidade</label>
-                    <input type="text" id="quantidade" name="quantidade" className="input-padrao" required 
-                        placeholder="Digite a quantidade desejada" />
+    // Após 1s (tempo da transition no CSS), remove do estado
+    setTimeout(() => {
+      setEncomendas((prev) => prev.filter((e) => e.id !== id))
+      setRemovendo((prev) => {
+        const novo = new Set(prev)
+        novo.delete(id)
+        return novo
+      })
+    }, 1000)
+  }
 
-                    <label htmlFor="produto">Produto</label>
-                    <select id="produto" name="produto" className="input-padrao">
-                        <option value="">Selecione</option>
-                        <option> Body </option>
-                        <option> Brincos</option>
-                        <option> Chapéus</option>
-                        <option> Bolsas</option>
-                        <option> Biquinis</option>
-                    </select>
+  // Exemplo de busca na API (mock). Troque pelo fetch real quando tiver a URL.
+  const buscarDaAPI = async () => {
+    try {
+      // Exemplo real:
+      // const resp = await fetch('https://sua-api.com/encomendas')
+      // const dados = await resp.json()
+      // setEncomendas((prev) => [...prev, ...dados.map(d => ({ id: novaId(), ...d }))])
 
-                    <label htmlFor="valorUnitario">R$ Unitário</label>
-                    <input type="text" id="valorUnitario" name="valorUnitario" className="input-padrao" required 
-                        placeholder="Digite o unitário do produto" />
+      // Mock demonstrativo:
+      await new Promise((r) => setTimeout(r, 500))
+      setEncomendas((prev) => [
+        ...prev,
+        {
+          id: novaId(),
+          nome: 'Cliente API',
+          produto: 'Body (1 peça) - Preto',
+          quantidade: 1,
+          valorUnitario: 210
+        }
+      ])
+      alert('Dados da API adicionados (mock). Substitua pelo fetch real.')
+    } catch (err) {
+      console.error('Erro ao buscar da API', err)
+      alert('Erro ao buscar da API.')
+    }
+  }
 
-                    {/* No React, o evento de clique seria 'onClick={...}' (Página 48) */}
-                    <button className="enviar" id="adiciona_encomenda" type="button">Adicionar</button>
-                </fieldset>
-            </form>
-
-            {/* --- RODAPÉ --- */}
-            <footer>
-                <img src={logoFooter} alt="imp" className="logo_footer" />
-                <p>
-                    Encomendas on-line: 
-                    <a href="https://wa.me/5511948880090">
-                        {/* 'className' para ícones de fontes externas também deve ser alterado */}
-                        <i className="fa fa-whatsapp"></i> 
-                    </a> 
-                    (11) 94888-0090 |
-                    <a href="http://fa-instagram.com/imp">
-                        <i className="fa fa-instagram"></i> 
-                    </a> 
-                    @imp
-                </p>
-            </footer>
-
-            {/* Scripts: No React, a lógica desses scripts (js/encomendas.js, etc) 
-                deve ser reescrita como funções dentro deste componente ou em useEffects. 
-                Eles não são carregados via tag <script> no meio do JSX. */}
+  return (
+    <>
+      {/* Cabeçalho com logo e menu (classes e estrutura do seu CSS) */}
+      <header>
+        <div className="divHeader">
+          <img src="/img/logo.png.png" title="imp" className="logo" alt="imp" />
+          <nav>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="produtos.html">Produtos</a></li>
+              <li>Contato</li>
+              <li>|</li>
+              <li><a href="encomendas.html">Encomendas</a></li>
+            </ul>
+          </nav>
         </div>
-    );
+      </header>
+
+      {/* Conteúdo principal com gradiente de fundo (.fundo) */}
+      <main className="fundo">
+        {/* Título da seção */}
+        <ul className="encomendas-titulo">
+          <li className="encomendas-item">Encomendas</li>
+        </ul>
+
+        {/* Campo de busca por nome (usa .Buscar e #buscar do seu CSS) */}
+        <label htmlFor="buscar" className="Buscar">Buscar</label>
+        <input
+          type="text"
+          name="buscar"
+          id="buscar"
+          placeholder="Digite o nome do cliente"
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+        />
+
+        {/* Tabela de encomendas com validação visual (info_invalida) e botão Remover (.botao_add) */}
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Produto</th>
+              <th>Quantidade</th>
+              <th>Valor Unitário</th>
+              <th>Total</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody className="tabela-clientes">
+            {filtradas.map((c) => {
+              const qtdInvalida = typeof c.quantidade !== 'number'
+              const valInvalido = typeof c.valorUnitario !== 'number'
+              const linhaRemovendo = removendo.has(c.id)
+
+              return (
+                <tr key={c.id} className={`cliente ${linhaRemovendo ? 'fadeOut' : ''}`}>
+                  <td className="nome">{c.nome}</td>
+                  <td className="produto">{c.produto}</td>
+                  <td className={`qtde ${qtdInvalida ? 'info_invalida' : ''}`}>
+                    {qtdInvalida ? '—' : c.quantidade}
+                  </td>
+                  <td className={`unitario ${valInvalido ? 'info_invalida' : ''}`}>
+                    {valInvalido ? '—' : moedaBRL(c.valorUnitario)}
+                  </td>
+                  <td className="total">{totalItem(c.quantidade, c.valorUnitario)}</td>
+                  <td>
+                    <button className="botao_add" onClick={() => handleDelete(c.id)}>
+                      Remover
+                    </button>
+                  </td>
+                </tr>
+              )
+            })}
+            {filtradas.length === 0 && (
+              <tr>
+                <td colSpan="6" style={{ textAlign: 'center' }}>Nenhuma encomenda encontrada.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+
+        {/* Botão para buscar dados de uma API externa (usa .botao_add) */}
+        <button id="api-encomenda" className="botao_add" onClick={buscarDaAPI}>
+          Buscar da API
+        </button>
+
+        {/* Título da seção do formulário */}
+        <ul className="encomendas-titulo">
+          <li className="encomendas-item">Adicionar Encomendas</li>
+        </ul>
+
+        {/* Formulário controlado (usa estrutura e classes do seu CSS) */}
+        <form id="form-adicionar" onSubmit={handleAdd}>
+          <fieldset>
+            <legend>Dados da Encomenda</legend>
+
+            <label htmlFor="nome">Nome</label>
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              className="input-padrao"
+              placeholder="Digite o nome da(o) cliente"
+              value={form.nome}
+              onChange={handleFormChange}
+              required
+            />
+
+            <label htmlFor="quantidade">Quantidade</label>
+            <input
+              type="number"
+              id="quantidade"
+              name="quantidade"
+              className="input-padrao"
+              placeholder="Digite a quantidade desejada"
+              value={form.quantidade}
+              onChange={handleFormChange}
+            />
+
+            <label htmlFor="produto">Produto</label>
+            <select
+              id="produto"
+              name="produto"
+              className="input-padrao"
+              value={form.produto}
+              onChange={handleFormChange}
+              required
+            >
+              <option value="">Selecione</option>
+              <option>Body</option>
+              <option>Brincos</option>
+              <option>Chapéus</option>
+              <option>Bolsas</option>
+              <option>Biquinis</option>
+            </select>
+
+            <label htmlFor="valorUnitario">R$ Unitário</label>
+            <input
+              type="number"
+              id="valorUnitario"
+              name="valorUnitario"
+              className="input-padrao"
+              placeholder="Digite o unitário do produto"
+              step="0.01"
+              value={form.valorUnitario}
+              onChange={handleFormChange}
+            />
+
+            <button className="botao_add" id="adiciona_encomenda" type="submit">
+              Adicionar
+            </button>
+          </fieldset>
+        </form>
+      </main>
+    </>
+  )
 }

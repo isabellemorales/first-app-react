@@ -1,40 +1,27 @@
-// src/components/Beneficios.js
-import React, { useState } from 'react';
-import "../css/estilo_beneficio.css";
+// src/components/Beneficios.jsx
+import beneficiosImg from '../assets/beneficios.jpg'; // ajuste o caminho se necessário
+import '../css/estilo_beneficio.css';
 
-function Beneficios() {
-  const [imageOpacity, setImageOpacity] = useState(1);
-
-  const produtos = [
-    'Biquínis e Maiôs',
-    'Saídas de Praia',
-    'Acessórios e Bolsas',
-    'Saias',
-    'Chápeus'
-  ];
-
+export default function Beneficios() {
   return (
     <section className="titulo_produtos">
       <h2 className="Benefícios">Produtos</h2>
-      
-      <div className="container-beneficios">
-        <ul className="Beneficiosprodutos">
-          {produtos.map((produto, index) => (
-            <li key={index}>{produto}</li>
-          ))}
+
+      <div className="beneficios-wrapper">
+        <ul className="Benefíciosprodutos">
+          <li>Biquínis e Maiôs</li>
+          <li>Saídas de Praia</li>
+          <li>Acessórios e Bolsas</li>
+          <li>Saias</li>
+          <li>Chapéus</li>
         </ul>
 
         <img
           className="img_benefícios"
-          src="img/benefícios.jpg"
-          alt="Foto que mostra biquini, acessório, saia"
-          style={{ opacity: imageOpacity }}
-          onMouseEnter={handleImageHover}
-          onMouseLeave={handleImageLeave}
+          src={beneficiosImg}
+          alt="Foto que mostra biquíni, acessório e saia"
         />
       </div>
     </section>
   );
 }
-
-export default Beneficios;

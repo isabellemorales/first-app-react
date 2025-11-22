@@ -1,0 +1,72 @@
+/* Fundo com gradiente da seção */
+.titulo_produtos {
+  background: linear-gradient(white, white, white, #dbecf3);
+  padding: 20px 0 40px;
+}
+
+/* Título central */
+.Benefícios {
+  clear: left;
+  text-align: center;
+  font-size: 32px;
+  color: #d4a373;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Layout lado a lado */
+.beneficios-wrapper {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Lista com “🌊” */
+.Benefíciosprodutos {
+  font-size: 25px;
+  margin: 10;
+  padding-left: 1.25rem; /* espaço para o marcador */
+}
+
+.Benefíciosprodutos li {
+  margin-bottom: 30px;
+
+  list-style-position: inside;
+}
+
+.Benefíciosprodutos li::marker {
+  content: "🌊 ";
+}
+
+/* Imagem à direita com cantos e sombra */
+.img_benefícios {
+  width: 205px; 
+  height: auto;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.3);
+  transition: 1s all;
+  cursor: pointer;
+}
+
+.img_benefícios:hover {
+  opacity: 0.5;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .beneficios-wrapper {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .img_benefícios {
+    justify-self: center;
+    width: min(320px, 90%);
+  }
+}
