@@ -64,7 +64,7 @@ export default function Produtos() {
 
         {
             id: 2,
-            nome: "SAIA ENVELOPE",
+            nome: "SAIAS",
             slider: [
                 { img: prod02, desc: "A saia envelope branca valoriza a silhueta com seu caimento fluido e modelagem transpassada." },
                 { img: prod02s1, desc: "O fechamento lateral em amarração permite regulagem perfeita e adiciona charme ao visual." },
@@ -76,11 +76,11 @@ export default function Produtos() {
 
         {
             id: 3,
-            nome: "BRINCO DOURADO MADREPÉROLA",
+            nome: "BRINCOS ",
             slider: [
                 { img: prod03, desc: "O brinco dourado com madrepérola une delicadeza, brilho suave e elegância atemporal." },
                 { img: prod03s1, desc: "Seu design orgânico traz leveza e modernidade, perfeito para iluminar qualquer look." },
-                { img: prod03s2, desc: "A madrepérola reflete a luz de forma natural, destacando o rosto com suavidade e charme." }
+                { img: prod03s2, desc: "" }
             ],
             img: prod03,
             preco: "85"
@@ -88,7 +88,7 @@ export default function Produtos() {
 
         {
             id: 4,
-            nome: "CHAPÉU DE PALHA",
+            nome: "CHAPÉUS DE PALHA",
             slider: [
                 { img: prod04, desc: "O chapéu de palha possui aba ampla que oferece proteção com estilo e charme natural." },
                 { img: prod04s1, desc: "Feito em palha leve, é confortável e combina com looks de verão ou dias ensolarados." },
@@ -100,7 +100,7 @@ export default function Produtos() {
 
         {
             id: 5,
-            nome: "BOLSA DE PALHA",
+            nome: "BOLSAS DE PALHA",
             slider: [
                 { img: prod05, desc: "A bolsa de palha une naturalidade e elegância em uma peça leve e super versátil." },
                 { img: prod05s1, desc: "Com estrutura espaçosa, é perfeita para o dia a dia ou passeios ao ar livre." },
@@ -112,7 +112,7 @@ export default function Produtos() {
 
         {
             id: 6,
-            nome: "BIQUÍNI",
+            nome: "BIQUÍNIS",
             slider: [
                 { img: prod06, desc: "O biquíni possui design moderno com fivela central que realça o busto com elegância." },
                 { img: prod06s1, desc: "As alças ajustáveis garantem conforto e sustentação, adaptando-se ao corpo com perfeição." },

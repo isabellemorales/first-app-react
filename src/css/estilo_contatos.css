@@ -3,424 +3,221 @@
     src: url("../assets/HastinaFreeFont.otf");
 }
 
-main {
-    flex: 1;
-    background: transparent;
-    /* Herda o gradiente do body */
-}
-
-/* Estilização BODY do site */
 body {
-    width: 100%;
-    margin: 0;
-    border: 0;
-    font-family: 'minhafonte';
-    background-color: #f5f7fa;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  font-family: 'minhafonte', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(white, #cfe9f3);
 }
 
-body {
-    background: linear-gradient(white, #cfe9f3);
-    /*Permite fazer o GRADIENTE*/
-}
-
-/* Estilização do header do site */
-header {
-    background-color: #071A3D;
-}
-
-/* ESTILIZAÇÃO DIV DO SITE */
-.divHeader {
-    position: relative;
-    margin: auto;
-    width: 80%;
-    padding-bottom: 10px;
-}
-
-.logo {
-    width: 5%;
-    margin: 10px 0 0 10px;
-
-}
-
-/* ESTILIZAÇÃO MENU DO SITE */
-nav {
-    position: absolute;
-    top: 10px;
-    right: 150px;
-}
-
-nav li,
-nav a {
-    display: inline;
-    color: white;
-    font-size: 20px;
-    margin-right: 20px;
-    text-decoration: none;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-/* Container principal */
 main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-/* Título */
+/* Título e texto introdutório */
 .contatos-titulo {
-    font-size: 40px;
-    font-weight: bold;
-    color: #d4a373;
-    list-style: none;
-    font-family: 'minhafonte';
-    text-align: center;
-    padding: 0;
-    margin: 30px 0;
+  list-style: none;
+  padding: 0;
+  margin: 30px 0 10px;
+  text-align: center;
+  color: #d4a373;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: 'minhafonte', serif;
 }
-
 .contatos-item:before {
-    content: "🐚";
-    margin-right: 10px;
+  content: "🐚";
+  margin-right: 10px;
 }
 
-/* TEXTO TELA DE CONTATOS */
 .texto-contatos {
-    padding-left: 3%;
-    text-align: center;
-    font-size: 18px;
-    line-height: 1.5;
-    max-width: 70%;
-    width: 75vw;
-    margin: 20px auto 40px auto;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.5;
+  width: 75vw;
+  max-width: 70%;
+  margin: 10px auto 28px auto;
+  color: #071A3D;
 }
 
-/* Formulário */
+/*Card azul do formulário*/
 #formulario {
-    background-color: #071A3D;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(7, 26, 61, 0.2);
-    padding-left: 10%;
-    padding-right: 10%;
-    max-width: 900px;
-    margin: 0 20px 0 20px;
-    color: white;
-    align-items: center;
+  background-color: #071A3D;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(7, 26, 61, 0.22);
+  width: 980px;         /* largura desktop como no layout original */
+  max-width: 92vw;      /* responsivo */
+  margin: 0 auto 30px auto;
+  padding: 28px 32px;
 }
 
-#formulario .texto-contatos {
-    color: white;
-}
 
-form {
-    margin-top: 20px;
-    margin-left: 0;
-    margin-bottom: 0;
-    width: 100%;
-}
+#formulario .texto-contatos { color: #fff; }
 
-form label,
-form legend {
-    display: block;
-    font-size: 20px;
-    margin: 0 0 10px;
-    color: white;
-}
+/* Estrutura do form */
+#frmContato { margin: 0; width: 100%; }
+
 
 fieldset {
-    width: 100%;
-    max-width: 100%;
-    padding-left: 10%;
-    padding-right: 10%;
-    margin-bottom: 20px;
-    border: 2px solid white;
-    border-radius: 8px;
-    box-sizing: border-box;
-    margin: 0 auto;
-    /* centraliza */
-
+  width: 100%;
+  padding: 22px 22px 18px;
+  margin: 0 auto 14px;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  box-sizing: border-box;
 }
-
-
 fieldset legend {
-    padding: 0 15px;
-    color: white;
-    font-weight: bold;
-    font-size: 22px;
+  padding: 0 15px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 22px;
 }
 
+/* Labels padrão (um por linha) */
+#frmContato label,
+#frmContato legend {
+  display: block;
+  font-size: 20px;
+  margin: 0 0 10px;
+  color: #fff;
+}
+
+/* Campos*/
 .input-padrao,
 textarea,
 select {
-    width: 100%;
-    max-width: 100%;
-    padding: 14px 20px;
-    margin-bottom: 20px;
-    border: none;
-    border-radius: 8px;
+  width: 100%;
+  max-width: 100%;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #071A3D;
+  font-family: inherit;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.input-padrao:focus,
+textarea:focus,
+select:focus {
+  background-color:#cfe9f3 !important;
+  border-color: #d4a373;
+  outline: none;
+  /*box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.2);*/
+}
+
+.select-motivo option:hover {
     background-color: white;
     color: #071A3D;
-    font-family: inherit;
-    font-size: 16px;
-    box-sizing: border-box;
 }
 
-
-.input-padrao:focus {
-    border-color: #d4a373;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.2);
-}
-
-.radio-group {
-    margin: 15px 0;
-}
-
-.radio-group label {
-    display: inline;
-    margin-right: 15px;
-    color: white;
-}
-
-.chk {
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    color: white;
-}
-
-.chk input {
-    margin-right: 10px;
-    transform: scale(1.2);
-    margin: 0 40px;
-    /* centraliza */
-}
-
-
-select.input-padrao {
-    background-color: white;
-    color: #071A3D;
-
-}
-
-.enviar {
-    display: block;
-    margin: 0 auto;
-    width: 200px;
-    padding: 12px 0;
-    background-color: white;
-    color: #071A3D;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'minhafonte';
-    font-size: 18px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: 0.3s;
-}
-
-.enviar:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.05);
-}
-
-/* Div do retorno do formulário */
-.divRetorno {
-    display: none;
-    margin: 20px auto;
-    padding: 15px;
-    background-color: #e6f7ff;
-    border-left: 4px solid #071A3D;
-    max-width: 80%;
-    text-align: center;
-}
-
-.divRetorno p {
-    font-size: 24px;
-    margin: 0;
-}
-
-
-/*Estilizaçâo do footer*/
-footer {
-    background: url("../assets/rodapelogo.jpg") no-repeat;
-    background-size: 100%;
-    background-position: top;
-    background-color: rgba(0, 0, 0, 0.3);
-    background-blend-mode: blue;
-    padding: 20px 10px 10px 0;
-}
-
-footer i {
-    color: #f4f5f7;
-}
-
-footer p {
-    color: #fbfdff;
-    font-weight: bold;
-    font-size: 20px;
-    text-align: right;
-    margin: 0;
-    padding: 0 10px 20px 0;
-}
-
-.logo_footer {
-    width: 8%;
-    margin-left: 84%;
-}
-
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .divHeader {
-        width: 95%;
-    }
-
-    nav {
-        position: static;
-        text-align: center;
-        margin-top: 15px;
-    }
-
-    .logo {
-        width: 15%;
-        display: block;
-        margin: 10px auto;
-    }
-
-    fieldset {
-        width: 85%;
-        padding: 15px;
-    }
-
-    .enviar {
-        width: 80%;
-    }
-
-    .logo_footer {
-        width: 20%;
-        margin-left: 75%;
-    }
-
-    .texto-contatos {
-        width: 90vw;
-        max-width: 90%;
-    }
-}
-
-
-
-/* Formulário */
-#formulario {
-    background-color: #071A3D;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(7, 26, 61, 0.2);
-    padding: 2rem;
-    max-width: 900px;
-    margin: 0 auto;
-    color: white;
-}
-
-#formulario .texto-contatos {
-    color: white;
-}
-
-form {
-    display: flex;
+/* Opções de contato LADO A LADO */
+.linha-contato  {
+  display: flex;             
+  align-items: flex-start;
     flex-direction: column;
-    align-items: center;
+  gap: 10px;
+  /* flex-wrap: wrap;             */
+  margin: 8px 0 16px;
+  color: #fff;
 }
 
-form label,
-form legend {
-    display: block;
-    font-size: 20px;
-    margin: 0 0 10px;
-    color: white;
-}
-
-fieldset {
-    width: 90%;
-    padding: 25px;
-    margin-bottom: 2%;
-    border: 2px solid white;
-    border-radius: 8px;
-}
-
-fieldset legend {
-    padding: 0 15px;
-    color: white;
-    font-weight: bold;
-    font-size: 22px;
-}
-
-.radio-group {
-    margin: 15px 0;
-}
-
-.radio-group label {
-    display: inline;
-    margin-right: 15px;
-    color: white;
-}
-
-.chk {
-    margin: 20px 0px;
+.linha-contato div {
     display: flex;
-    align-items: center;
-    color: white;
+    flex-direction: row;
+    justify-content: space-between !important;
+    width: 100%;
 }
 
-.chk input {
-    margin-right: 10px;
-    transform: scale(1.2);
+.linha-contato label {
+    white-space: nowrap;
 }
 
-select.input-padrao {
-    background-color: white;
-    color: #071A3D;
+.pergunta { margin-right: 4px; font-size: 18px; }
+
+/* Cada radio inline */
+.radio-item {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: #fff;
+}
+.radio-item input[type="radio"] {
+  margin: 0;
+  transform: translateY(1px);
 }
 
-.enviar {
-    width: 40%;
-    padding: 15px 0;
-    margin: 20px 0;
-    background-color: white;
-    color: #071A3D;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    font-family: 'minhafonte';
-    font-size: 18px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+/* Neutraliza qualquer regra antiga que empurre radios */
+#frmContato label input[type="radio"] {
+  margin: 0 !important;
+  transform: none !important;
 }
 
-.enviar:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.05);
+/*Checkbox */
+#frmContato label.chk {
+  display: inline-flex !important; /* força mesma linha */
+  justify-content: center;
+  gap: 5px;
+  margin: 14px auto;
+  color: #fff;
+  width: 100% !important;
 }
 
-/* Div do retorno do formulário */
+#frmContato label.chk input[type="checkbox"] {
+    width: fit-content !important;
+  margin: 0 8px 0 0;
+  transform: scale(1.1);
+  vertical-align: middle;
+}
+
+/* Botão Enviar*/
+.enviar,
+#enviar {
+  display: block;
+  width: 240px;
+  padding: 12px 0;
+  margin: 16px auto 0;
+  background-color: #fff;
+  color: #071A3D;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'minhafonte', sans-serif;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  transition: 0.2s ease;
+}
+.enviar:hover,
+#enviar:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.03);
+}
+
+/* Mensagem de retorno*/
 .divRetorno {
-    display: none;
-    margin: 20px auto;
-    padding: 15px;
-    background-color: #e6f7ff;
-    border-left: 4px solid #071A3D;
-    max-width: 80%;
-    text-align: center;
+  margin: 16px auto 18px;
+  padding: 15px;
+  background-color: #e6f7ff;
+  border-left: 4px solid #071A3D;
+  max-width: 980px;
+  width: 92vw;
+  text-align: center;
+}
+.divRetorno p {
+  font-size: 20px;
+  margin: 0;
+  color: #071A3D;
+
 }
 
-.divRetorno p {
-    font-size: 24px;
-    margin: 0;
-}
 

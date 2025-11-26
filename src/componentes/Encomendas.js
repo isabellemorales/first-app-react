@@ -1,312 +1,251 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from 'react-router-dom'; // Importa Link para rotas SPA
-import '../App.css'; // Importa seu CSS principal
+import '../css/estilo_encomenda.css';
+import axios from "axios";
 
 
-// Utilitário para formatar moeda em R$ (pt-BR)
-function Encomenda(valor) {
-  if (typeof valor !== 'number' || Number.isNaN(valor)) return '—'
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(valor)
-}
+export default function Encomendas() {
+  // Estado de busca
+  const [busca, setBusca] = useState("");
 
-// Converte string para número (aceita vírgula) ou retorna null se inválido
-function toNumberOrNull(v) {
-  const n = Number(String(v).replace(',', '.'))
-  return Number.isFinite(n) ? n : null
-}
+  // Estado principal das encomendas 
+  const [encomendas, setEncomendas] = useState([])
+  const [carregandoAPI, setCarregandoAPI] = useState(false);
+  const [erroAPI, setErroAPI] = useState("");
 
-// Gera um ID simples (para usar como key no React)
-function novaId() {
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
-}
+  function BuscarDadosDaApi () {
+    setCarregandoAPI(true)
 
-export default function App() {
-  // Estado com as encomendas iniciais (iguais às do seu HTML; onde tinha "n", usamos null)
-  const [encomendas, setEncomendas] = useState([
-    {
-      id: novaId(),
-      nome: 'Bárbara',
-      produto: 'Body (2 peças) - Preto com fivela dourada',
-      quantidade: 2,
-      valorUnitario: 200
-    },
-    {
-      id: novaId(),
-      nome: 'Júlia',
-      produto: 'Saia Envelope (3 peças) - Branca',
-      quantidade: null, // no HTML estava "n"
-      valorUnitario: 150
-    },
-    {
-      id: novaId(),
-      nome: 'Isabela',
-      produto: 'Brinco dourado madreperóla (1 peça) - Preto com fivela dourada',
-      quantidade: 1,
-      valorUnitario: null // no HTML estava "n"
-    },
-    {
-      id: novaId(),
-      nome: 'Amanda',
-      produto: 'Biquínis (5 peças) - Branco com fivela',
-      quantidade: 5,
-      valorUnitario: 185
-    }
-  ])
+    axios.get("http://localhost:3000/encomendas_web")
+    .then((response) => {
+        setEncomendas(response.data)
+    })
+    .catch((error) => {
+        setErroAPI("Erro ao buscar os dados")
+        console.error(error)
+    })
+    .finally(() => {
+        setCarregandoAPI(false)
+    })
+  }
 
-  // IDs que estão em animação de remoção (.fadeOut)
-  const [removendo, setRemovendo] = useState(new Set())
+  useEffect(() => {
+    BuscarDadosDaApi()
 
-  // Estado do campo de busca
-  const [busca, setBusca] = useState('')
+  }, [])
 
-  // Estado do formulário
+  // Estado do formulário "Adicionar Encomendas"
   const [form, setForm] = useState({
-    nome: '',
-    quantidade: '',
-    produto: '',
-    valorUnitario: ''
-  })
+    nome: "",
+    quantidade: "",
+    produto: "",
+    valorUnitario: "",
+  });
 
-  // Filtra encomendas pelo nome (case-insensitive)
-  const filtradas = useMemo(() => {
-    const q = busca.trim().toLowerCase()
-    if (!q) return encomendas
-    return encomendas.filter((e) => e.nome.toLowerCase().includes(q))
-  }, [busca, encomendas])
+  // Formatação BRL
+  const formatBRL = (v) =>
+    new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      maximumFractionDigits: 2,
+    }).format(Number(v || 0));
 
-  // Cálculo do total por linha (retorna "—" se faltar dado numérico)
-  const totalItem = (q, u) => {
-    if (typeof q !== 'number' || typeof u !== 'number') return '—'
-    return moedaBRL(q * u)
+  // Lista filtrada pelo nome
+  const encomendasFiltradas = useMemo(() => {
+    const q = busca.trim().toLowerCase();
+    if (!q) return encomendas;
+    return encomendas.filter((e) => e.nome.toLowerCase().includes(q));
+  }, [busca, encomendas]);
+
+
+  function handleChangeForm(e) {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  // Atualiza o formulário a cada digitação
-  const handleFormChange = (e) => {
-    const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
-  }
+  function handleAdicionar(e) {
+    e.preventDefault();
 
-  // Adiciona nova encomenda
-  const handleAdd = (e) => {
-    e.preventDefault()
+    const quantidadeNum = Number(form.quantidade);
+    const unitNum = Number(
+      String(form.valorUnitario).replace(",", ".").trim()
+    );
 
-    if (!form.nome || !form.produto) {
-      alert('Preencha ao menos Nome e Produto.')
-      return
+    if (!form.nome.trim()) {
+      alert("Informe o nome.");
+      return;
+    }
+    if (!form.produto.trim()) {
+      alert("Selecione o produto.");
+      return;
+    }
+    if (!Number.isFinite(quantidadeNum) || quantidadeNum <= 0) {
+      alert("Quantidade deve ser um número maior que zero.");
+      return;
+    }
+    if (!Number.isFinite(unitNum) || unitNum <= 0) {
+      alert("Valor unitário deve ser um número maior que zero.");
+      return;
     }
 
-    const nova = {
-      id: novaId(),
+    const novo = {
+      id: Date.now(),
       nome: form.nome.trim(),
       produto: form.produto.trim(),
-      quantidade: form.quantidade !== '' ? toNumberOrNull(form.quantidade) : null,
-      valorUnitario: form.valorUnitario !== '' ? toNumberOrNull(form.valorUnitario) : null
-    }
+      quantidade: quantidadeNum,
+      valorUnitario: unitNum,
+    };
 
-    setEncomendas((prev) => [...prev, nova])
-    setForm({ nome: '', quantidade: '', produto: '', valorUnitario: '' })
-  }
-
-  // Remove uma encomenda com animação .fadeOut
-  const handleDelete = (id) => {
-    // Marca como "removendo" para aplicar a classe .fadeOut
-    setRemovendo((prev) => new Set(prev).add(id))
-
-    // Após 1s (tempo da transition no CSS), remove do estado
-    setTimeout(() => {
-      setEncomendas((prev) => prev.filter((e) => e.id !== id))
-      setRemovendo((prev) => {
-        const novo = new Set(prev)
-        novo.delete(id)
-        return novo
-      })
-    }, 1000)
-  }
-
-  // Exemplo de busca na API (mock). Troque pelo fetch real quando tiver a URL.
-  const buscarDaAPI = async () => {
-    try {
-      // Exemplo real:
-      // const resp = await fetch('https://sua-api.com/encomendas')
-      // const dados = await resp.json()
-      // setEncomendas((prev) => [...prev, ...dados.map(d => ({ id: novaId(), ...d }))])
-
-      // Mock demonstrativo:
-      await new Promise((r) => setTimeout(r, 500))
-      setEncomendas((prev) => [
-        ...prev,
-        {
-          id: novaId(),
-          nome: 'Cliente API',
-          produto: 'Body (1 peça) - Preto',
-          quantidade: 1,
-          valorUnitario: 210
-        }
-      ])
-      alert('Dados da API adicionados (mock). Substitua pelo fetch real.')
-    } catch (err) {
-      console.error('Erro ao buscar da API', err)
-      alert('Erro ao buscar da API.')
-    }
+    setEncomendas((prev) => [novo, ...prev]);
+    setForm({
+      nome: "",
+      quantidade: "",
+      produto: "",
+      valorUnitario: "",
+    });
   }
 
   return (
-    <>
-      {/* Cabeçalho com logo e menu (classes e estrutura do seu CSS) */}
-      <header>
-        <div className="divHeader">
-          <img src="/img/logo.png.png" title="imp" className="logo" alt="imp" />
-          <nav>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="produtos.html">Produtos</a></li>
-              <li>Contato</li>
-              <li>|</li>
-              <li><a href="encomendas.html">Encomendas</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+    <main style={{ padding: 16 }}>
+      {/* Título */}
+      <ul className="encomendas-titulo">
+        <li className="encomendas-item">Encomendas</li>
+      </ul>
 
-      {/* Conteúdo principal com gradiente de fundo (.fundo) */}
-      <main className="fundo">
-        {/* Título da seção */}
-        <ul className="encomendas-titulo">
-          <li className="encomendas-item">Encomendas</li>
-        </ul>
+      {/* Campo de busca */}
+      <label htmlFor="buscar">Buscar</label>
+      <input
+        type="text"
+        name="buscar"
+        id="buscar"
+        placeholder="Digite o nome do cliente"
+        value={busca}
+        onChange={(e) => setBusca(e.target.value)}
+        style={{ display: "block", marginBottom: 12 }}
+      />
 
-        {/* Campo de busca por nome (usa .Buscar e #buscar do seu CSS) */}
-        <label htmlFor="buscar" className="Buscar">Buscar</label>
-        <input
-          type="text"
-          name="buscar"
-          id="buscar"
-          placeholder="Digite o nome do cliente"
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-        />
+      {/* Tabela */}
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Total</th>
+          </tr>
+        </thead>
 
-        {/* Tabela de encomendas com validação visual (info_invalida) e botão Remover (.botao_add) */}
-        <table>
-          <thead>
+        <tbody className="tabela-clientes">
+          {encomendasFiltradas.length === 0 ? (
             <tr>
-              <th>Nome</th>
-              <th>Produto</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Total</th>
-              <th>Ações</th>
+              <td colSpan={5} style={{ textAlign: "center", padding: 12 }}>
+                Nenhuma encomenda encontrada.
+              </td>
             </tr>
-          </thead>
-          <tbody className="tabela-clientes">
-            {filtradas.map((c) => {
-              const qtdInvalida = typeof c.quantidade !== 'number'
-              const valInvalido = typeof c.valorUnitario !== 'number'
-              const linhaRemovendo = removendo.has(c.id)
-
+          ) : (
+            encomendasFiltradas.map((item) => {
+              const total = Number(item.quantidade) * Number(item.valorUnitario);
               return (
-                <tr key={c.id} className={`cliente ${linhaRemovendo ? 'fadeOut' : ''}`}>
-                  <td className="nome">{c.nome}</td>
-                  <td className="produto">{c.produto}</td>
-                  <td className={`qtde ${qtdInvalida ? 'info_invalida' : ''}`}>
-                    {qtdInvalida ? '—' : c.quantidade}
-                  </td>
-                  <td className={`unitario ${valInvalido ? 'info_invalida' : ''}`}>
-                    {valInvalido ? '—' : moedaBRL(c.valorUnitario)}
-                  </td>
-                  <td className="total">{totalItem(c.quantidade, c.valorUnitario)}</td>
-                  <td>
-                    <button className="botao_add" onClick={() => handleDelete(c.id)}>
-                      Remover
-                    </button>
-                  </td>
+                <tr className="cliente" key={item.id}>
+                  <td className="nome">{item.nome}</td>
+                  <td className="produto">{item.produto}</td>
+                  <td className="qtde">{item.quantidade}</td>
+                  <td className="unitario">{formatBRL(item.valorUnitario)}</td>
+                  <td className="total">{formatBRL(total)}</td>
                 </tr>
-              )
-            })}
-            {filtradas.length === 0 && (
-              <tr>
-                <td colSpan="6" style={{ textAlign: 'center' }}>Nenhuma encomenda encontrada.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              );
+            })
+          )}
+        </tbody>
+      </table>
 
-        {/* Botão para buscar dados de uma API externa (usa .botao_add) */}
-        <button id="api-encomenda" className="botao_add" onClick={buscarDaAPI}>
-          Buscar da API
-        </button>
+      <button
+        id="api-encomenda"
+        className="botao enviar"
+        type="button"
+        onClick={() => BuscarDadosDaApi()}
+        disabled={carregandoAPI}
+        style={{ marginTop: 12 }}
+      >
+        {carregandoAPI ? "Buscando..." : "Buscar da API"}
+      </button>
 
-        {/* Título da seção do formulário */}
-        <ul className="encomendas-titulo">
-          <li className="encomendas-item">Adicionar Encomendas</li>
-        </ul>
+      {erroAPI && (
+        <div style={{ color: "red", marginTop: 8 }}>{erroAPI}</div>
+      )}
 
-        {/* Formulário controlado (usa estrutura e classes do seu CSS) */}
-        <form id="form-adicionar" onSubmit={handleAdd}>
-          <fieldset>
-            <legend>Dados da Encomenda</legend>
+      {/* Título */}
+      <ul className="encomendas-titulo" style={{ marginTop: 24 }}>
+        <li className="encomendas-item">Adicionar Encomendas</li>
+      </ul>
 
-            <label htmlFor="nome">Nome</label>
-            <input
-              type="text"
-              id="nome"
-              name="nome"
-              className="input-padrao"
-              placeholder="Digite o nome da(o) cliente"
-              value={form.nome}
-              onChange={handleFormChange}
-              required
-            />
+      {/* Formulário */}
+      <form id="form-adicionar" onSubmit={handleAdicionar}>
+        <fieldset>
+          <legend>Dados da Encomenda</legend>
 
-            <label htmlFor="quantidade">Quantidade</label>
-            <input
-              type="number"
-              id="quantidade"
-              name="quantidade"
-              className="input-padrao"
-              placeholder="Digite a quantidade desejada"
-              value={form.quantidade}
-              onChange={handleFormChange}
-            />
+          <label htmlFor="nome">Nome</label>
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            className="input-padrao"
+            required
+            placeholder="Digite o nome da(o) cliente"
+            value={form.nome}
+            onChange={handleChangeForm}
+          />
 
-            <label htmlFor="produto">Produto</label>
-            <select
-              id="produto"
-              name="produto"
-              className="input-padrao"
-              value={form.produto}
-              onChange={handleFormChange}
-              required
-            >
-              <option value="">Selecione</option>
-              <option>Body</option>
-              <option>Brincos</option>
-              <option>Chapéus</option>
-              <option>Bolsas</option>
-              <option>Biquinis</option>
-            </select>
+          <label htmlFor="quantidade">Quantidade</label>
+          <input
+            type="number"
+            id="quantidade"
+            name="quantidade"
+            className="input-padrao"
+            required
+            placeholder="Digite a quantidade desejada"
+            value={form.quantidade}
+            onChange={handleChangeForm}
+            min={1}
+          />
 
-            <label htmlFor="valorUnitario">R$ Unitário</label>
-            <input
-              type="number"
-              id="valorUnitario"
-              name="valorUnitario"
-              className="input-padrao"
-              placeholder="Digite o unitário do produto"
-              step="0.01"
-              value={form.valorUnitario}
-              onChange={handleFormChange}
-            />
+          <label htmlFor="produto">Produto</label>
+          <select
+            id="produto"
+            name="produto"
+            className="input-padrao"
+            value={form.produto}
+            onChange={handleChangeForm}
+            required
+          >
+            <option value="">Selecione</option>
+            <option>Body</option>
+            <option>Brincos</option>
+            <option>Chapéus</option>
+            <option>Bolsas</option>
+            <option>Biquínis</option>
+          </select>
 
-            <button className="botao_add" id="adiciona_encomenda" type="submit">
-              Adicionar
-            </button>
-          </fieldset>
-        </form>
-      </main>
-    </>
-  )
+          <label htmlFor="valorUnitario">R$ Unitário</label>
+          <input
+            type="number"
+            step="0.01"
+            id="valorUnitario"
+            name="valorUnitario"
+            className="input-padrao"
+            required
+            placeholder="Digite o unitário do produto"
+            value={form.valorUnitario}
+            onChange={handleChangeForm}
+            min={0}
+          />
+
+          <button className="enviar" id="adiciona_encomenda" type="submit">
+            Adicionar
+          </button>
+        </fieldset>
+      </form>
+    </main>
+  );
 }

@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+/*Título*/
+.encomendas-titulo{
+    font-size: 40px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    list-style: none;
+}
+
+/*Texto dos Contatos*/
+.texto-encomendas{
+    padding-left: 5%;
+    color: white;
+}
+
+.titulo_h3 {
+    padding-left: 3%;
+    color: white;
+}
+
+/*Estilização da Tabela de Encomendas*/
+table{
+    width: 100%;
+    margin-bottom: 2%;
+    table-layout: fixed;
+    margin: 20px;
+}
+
+th{
+    font-weight: bold;
+    background-color: white;
+}
+
+/*Separei o td pra só ele ficar branco*/
+td
+{
+    color: white;
+}
+
+td, th{
+    padding: 10px;
+    margin: 0;
+    border: 1px solid aliceblue;
+    text-align: center;
+}
+
+/*Estilização das informações inválidas*/
+.info_invalida {
+    background-color: red;
+    color: white;
+}
+
+/*Formulário*/
+form{
+    margin-top: 40px;
+    margin-left: 20%;
+    margin-bottom: 0;
+}
+
+form label, form legend {
+    display: block;
+    font-size: 20px;
+    margin: 0 0 10px;
+    color: white;
+}
+
+fieldset{
+    width: 75%;
+    padding-left: 5%;
+    margin-bottom: 2%;
+    padding-right: 5%;
+    color: white;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #111;
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="tel"]:focus, 
+input[type="number"]:focus, 
+textarea:focus, select:focus{
+  border-color: #ffcd61; /* cor do destaque */
+  outline: none;
+  background-color: #1a1a1a;
+  box-shadow: 0 0 5px #ffcd61;
+}
+
+.botao_add {
+    display: block;
+    width:30%;
+    padding: 15px 0;
+    margin-bottom: 2%;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    transition: Is all;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.botao_add:hover {
+    background: #ffcd61;
+    /*transform: scale(1.2);*/
+}
+
+/*Estilização da exclusão da encomenda*/
+.fadeOut{
+    opacity: 0;
+    transition: 1s;
+}
+/*Estilização do buscar*/
+#buscar{
+    width: 19.5%;
+    height: 35px;
+    margin-bottom: 10px;
+}
+
+#buscar:focus, textarea:focus, select:focus{
+  border-color: #ffcd61; /* cor do destaque */
+  outline: none;
+  background-color: #1a1a1a;
+  box-shadow: 0 0 5px #ffcd61;
+}
+
+.Buscar{
+    color: white;
+    margin: 2px;
+    margin-left: 5px;
+}
+
+.invisivel{
+    display: none;
+}

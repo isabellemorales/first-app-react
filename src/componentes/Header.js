@@ -37,8 +37,7 @@ function Header() {
                         <li><Link to="/produtos" onClick={fecharMenu}>Produtos</Link></li>
                         <li><Link to="/contato" onClick={fecharMenu}>Contato</Link></li>
                         <li>|</li> {/* separador visual */}
-                        {/* Link que usa href e id para âncora na página */}
-                        <li><a href="#encomendas" onClick={fecharMenu}>Encomendas</a></li>
+                        <li><Link to="/encomendas" onClick={fecharMenu}>Encomendas</Link></li>
                     </ul>
                 </nav>
             </div>

@@ -7,6 +7,7 @@ import SobreNos from './componentes/Sobre_nos';
 import Beneficios from './componentes/Beneficios';
 import Contato from './componentes/Contato';
 import Produtos from './componentes/Produtos';
+import Encomendas from './componentes/Encomendas';
 import Footer from './componentes/Footer';
 
 export default function App() {
@@ -38,6 +39,9 @@ export default function App() {
 
           {/* Página de Contato */}
           <Route path="/contato" element={<Contato />} />
+
+          {/* Página de Encomendas */}
+          <Route path="/encomendas" element={<Encomendas />} />
         </Routes>
 
         {/* Footer fica em todas as páginas */}

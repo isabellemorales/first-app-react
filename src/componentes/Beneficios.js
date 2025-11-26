@@ -1,8 +1,8 @@
-// src/components/Beneficios.jsx
+
 import beneficiosImg from '../assets/beneficios.jpg'; // ajuste o caminho se necessário
 import '../css/estilo_beneficio.css';
 
-export default function Beneficios() {
+function Beneficios() {
   return (
     <section className="titulo_produtos">
       <h2 className="Benefícios">Produtos</h2>
@@ -25,3 +25,5 @@ export default function Beneficios() {
     </section>
   );
 }
+
+export default Beneficios;
