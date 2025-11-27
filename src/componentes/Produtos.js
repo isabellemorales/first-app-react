@@ -71,7 +71,7 @@ export default function Produtos() {
                 { img: prod02s2, desc: "Ideal para composições casuais ou sofisticadas, é leve, fresca e extremamente versátil." }
             ],
             img: prod02,
-            preco: "150"
+            preco: "100"
         },
 
         {
@@ -119,7 +119,7 @@ export default function Produtos() {
                 { img: prod06s2, desc: "A combinação entre brilho suave e modelagem equilibrada traz charme e sofisticação." }
             ],
             img: prod06,
-            preco: "185"
+            preco: "160"
         }
     ];
 
