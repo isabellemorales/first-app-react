@@ -5,7 +5,7 @@ import '../css/estilo_beneficio.css';
 function Beneficios() {
   return (
     <section className="titulo_produtos">
-      <h2 className="Benefícios">Produtos</h2>
+      <h2 className="Benefícios">Nossos Produtos</h2>
 
       <div className="beneficios-wrapper">
         <ul className="Benefíciosprodutos">
