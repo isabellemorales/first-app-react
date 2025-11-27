@@ -80,10 +80,10 @@ export default function Produtos() {
             slider: [
                 { img: prod03, desc: "O brinco dourado com madrepérola une delicadeza, brilho suave e elegância atemporal." },
                 { img: prod03s1, desc: "Seu design orgânico traz leveza e modernidade, perfeito para iluminar qualquer look." },
-                { img: prod03s2, desc: "" }
+                { img: prod03s2, desc: "Brincos pendentes com conchas douradas e topo em pérola com design de raio de sol, unindo elegância praiana e sofisticação." }
             ],
             img: prod03,
-            preco: "85"
+            preco: "65"
         },
 
         {
@@ -95,7 +95,7 @@ export default function Produtos() {
                 { img: prod04s2, desc: "O laço delicado adiciona um toque feminino, equilibrando simplicidade e sofisticação." }
             ],
             img: prod04,
-            preco: "100"
+            preco: "90"
         },
 
         {
@@ -116,7 +116,7 @@ export default function Produtos() {
             slider: [
                 { img: prod06, desc: "O biquíni possui design moderno com fivela central que realça o busto com elegância." },
                 { img: prod06s1, desc: "As alças ajustáveis garantem conforto e sustentação, adaptando-se ao corpo com perfeição." },
-                { img: prod06s2, desc: "A combinação entre brilho suave e modelagem equilibrada traz charme e sofisticação." }
+                { img: prod06s2, desc: "A combinação entre detalhe do recorte e modelagem equilibrada traz charme e sofisticação." }
             ],
             img: prod06,
             preco: "160"

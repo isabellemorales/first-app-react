@@ -94,6 +94,67 @@ export default function Encomendas() {
     });
   }
 
+  // Dblclick: fade + remoção real da linha (do estado)
+  useEffect(() => {
+    const tabela = document.querySelector("table");
+    if (!tabela) return;
+
+    function onDblClick(event) {
+      const linha = event.target.closest("tr.cliente");
+      if (!linha) return;
+
+      // 1) Aplica o fade
+      linha.classList.add("fadeOut");
+
+      // 2) Identifica a linha por id ou por uma chave composta estável
+      const id = linha.dataset.id || "";
+      const key = linha.dataset.key || "";
+
+      // 3) Remove do estado após o tempo da animação (1s)
+      setTimeout(() => {
+        setEncomendas((prev) => {
+          if (id) {
+            return prev.filter((e) => String(e.id) !== String(id));
+          }
+          if (key) {
+            return prev.filter((e) => {
+              const k = `${e.nome}|||${e.produto}|||${e.quantidade}|||${e.valorUnitario}`;
+              return k !== key;
+            });
+          }
+          // Segurança: se não tiver id nem key, tenta remover pelo primeiro match textual (raro)
+          const nomeTxt = linha.querySelector(".nome")?.textContent?.trim() ?? "";
+          const prodTxt = linha.querySelector(".produto")?.textContent?.trim() ?? "";
+          const qtdeTxt = linha.querySelector(".qtde")?.textContent?.trim() ?? "";
+          const unitTxt = linha.querySelector(".unitario")?.textContent?.trim() ?? "";
+
+          // Normaliza unitTxt para número simples (remove R$, milhar, troca vírgula por ponto)
+          const unitNum = Number(
+            unitTxt.replace(/[^\d,.-]+/g, "").replace(/\./g, "").replace(",", ".")
+          );
+
+          let removed = false;
+          return prev.filter((e) => {
+            if (removed) return true;
+            const match =
+              e.nome === nomeTxt &&
+              e.produto === prodTxt &&
+              String(e.quantidade) === qtdeTxt &&
+              (Number.isNaN(unitNum) ? true : Number(e.valorUnitario) === unitNum);
+            if (match) {
+              removed = true;
+              return false; // remove este
+            }
+            return true;
+          });
+        });
+      }, 1000);
+    }
+
+    tabela.addEventListener("dblclick", onDblClick);
+    return () => tabela.removeEventListener("dblclick", onDblClick);
+  }, []);
+
   return (
     <main style={{ padding: 16 }}>
       {/* Título */}
@@ -143,23 +204,30 @@ export default function Encomendas() {
               const valorInvalido = !Number.isFinite(valorProduto) || valorProduto < 1;
               const linhaInvalida = qtdInvalida || valorInvalido;
 
+              // Chave composta para fallback de remoção (quando não houver id)
+              const dataKey = `${item.nome}|||${item.produto}|||${item.quantidade}|||${item.valorUnitario}`;
+
               return (
-                // Quando inválido, a linha recebe 'info_invalida' (CSS já deixa a linha vermelha)
-                <tr className={`cliente${linhaInvalida ? " info_invalida" : ""}`} key={item.id}>
+                <tr
+                  className={`cliente${linhaInvalida ? " info_invalida" : ""}`}
+                  key={item.id ?? dataKey}
+                  data-id={item.id ?? ""}     // preferencial para remoção
+                  data-key={dataKey}          // fallback estável para remoção
+                >
                   <td className="nome">{item.nome}</td>
                   <td className="produto">{item.produto}</td>
 
-                  {/* Quantidade: mostra mensagem apenas nesta célula se for inválida (sem pintar a coluna inteira) */}
+                  {/* Quantidade: mensagem apenas nesta célula se inválida */}
                   <td className="qtde">
                     {qtdInvalida ? "Quantidade inválida" : item.quantidade}
                   </td>
 
-                  {/* Valor unitário: mostra mensagem apenas nesta célula se for inválido */}
+                  {/* Valor unitário */}
                   <td className="unitario">
                     {valorInvalido ? "Unidade inválida" : formatBRL(item.valorUnitario)}
                   </td>
 
-                  {/* Total formatado; se inválido, formatBRL trata NaN como 0 */}
+                  {/* Total formatado */}
                   <td className="total">{formatBRL(total)}</td>
                 </tr>
               );
