@@ -3,7 +3,7 @@
 /* Container do banner - envolve a imagem */
 .banner-container {
   width: 100%; 
-  overflow: hidden; /* Evita conteúdo de sair da tela */
+  overflow: hidden; 
   display: block; 
 }
 
@@ -11,7 +11,7 @@
 .banner {
   width: 100%; 
   height: auto; 
-  display: block; /* Remove espaço embaixo da imagem em alguns navegadores */
+  display: block;  
   max-width: 100%; /* Garante que não ultrapasse 100% */
 }
 

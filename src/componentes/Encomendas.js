@@ -1,38 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link } from 'react-router-dom'; // Importa Link para rotas SPA
 import '../css/estilo_encomenda.css';
 import axios from "axios";
 
-
 export default function Encomendas() {
-  // Estado de busca
+  // Estado do campo de busca
   const [busca, setBusca] = useState("");
-
-  // Estado principal das encomendas 
-  const [encomendas, setEncomendas] = useState([])
+  // Lista de encomendas
+  const [encomendas, setEncomendas] = useState([]);
+  // Estados de carregamento e erro da API
   const [carregandoAPI, setCarregandoAPI] = useState(false);
   const [erroAPI, setErroAPI] = useState("");
-
-  function BuscarDadosDaApi () {
-    setCarregandoAPI(true)
-
-    axios.get("http://localhost:3000/encomendas_web")
-    .then((response) => {
-        setEncomendas(response.data)
-    })
-    .catch((error) => {
-        setErroAPI("Erro ao buscar os dados")
-        console.error(error)
-    })
-    .finally(() => {
-        setCarregandoAPI(false)
-    })
-  }
-
-  useEffect(() => {
-    BuscarDadosDaApi()
-
-  }, [])
 
   // Estado do formulário "Adicionar Encomendas"
   const [form, setForm] = useState({
@@ -42,7 +19,7 @@ export default function Encomendas() {
     valorUnitario: "",
   });
 
-  // Formatação BRL
+  // Formatação BRL para exibição dos valores
   const formatBRL = (v) =>
     new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -50,43 +27,55 @@ export default function Encomendas() {
       maximumFractionDigits: 2,
     }).format(Number(v || 0));
 
-  // Lista filtrada pelo nome
+  // Lista filtrada pelo nome (controlada pelo estado 'busca')
   const encomendasFiltradas = useMemo(() => {
     const q = busca.trim().toLowerCase();
     if (!q) return encomendas;
     return encomendas.filter((e) => e.nome.toLowerCase().includes(q));
   }, [busca, encomendas]);
 
+  // Busca inicial da API ao montar
+  useEffect(() => {
+    BuscarDadosDaApi();
+  }, []);
 
+  // Busca dados na API e controla loading/erro
+  function BuscarDadosDaApi() {
+    setCarregandoAPI(true);
+    setErroAPI("");
+
+    axios.get("http://localhost:3000/encomendas_web")
+      .then((response) => {
+        setEncomendas(response.data);
+      })
+      .catch((error) => {
+        setErroAPI("Erro ao buscar os dados");
+        console.error(error);
+      })
+      .finally(() => {
+        setCarregandoAPI(false);
+      });
+  }
+
+  // Atualiza campos controlados do formulário
   function handleChangeForm(e) {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   }
 
+  // Valida e adiciona nova encomenda localmente
   function handleAdicionar(e) {
     e.preventDefault();
 
     const quantidadeNum = Number(form.quantidade);
-    const unitNum = Number(
-      String(form.valorUnitario).replace(",", ".").trim()
-    );
+    const unitNum = Number(String(form.valorUnitario).replace(",", ".").trim());
 
-    if (!form.nome.trim()) {
-      alert("Informe o nome.");
-      return;
-    }
-    if (!form.produto.trim()) {
-      alert("Selecione o produto.");
-      return;
-    }
-    if (!Number.isFinite(quantidadeNum) || quantidadeNum <= 0) {
-      alert("Quantidade deve ser um número maior que zero.");
-      return;
-    }
-    if (!Number.isFinite(unitNum) || unitNum <= 0) {
-      alert("Valor unitário deve ser um número maior que zero.");
-      return;
-    }
+    if (!form.nome.trim()) return alert("Informe o nome.");
+    if (!form.produto.trim()) return alert("Selecione o produto.");
+    if (!Number.isFinite(quantidadeNum) || quantidadeNum <= 0)
+      return alert("Quantidade deve ser um número maior que zero.");
+    if (!Number.isFinite(unitNum) || unitNum <= 0)
+      return alert("Valor unitário deve ser um número maior que zero.");
 
     const novo = {
       id: Date.now(),
@@ -113,7 +102,6 @@ export default function Encomendas() {
       </ul>
 
       {/* Campo de busca */}
-      <label htmlFor="buscar">Buscar</label>
       <input
         type="text"
         name="buscar"
@@ -145,13 +133,33 @@ export default function Encomendas() {
             </tr>
           ) : (
             encomendasFiltradas.map((item) => {
+              // Cálculo do total
               const total = Number(item.quantidade) * Number(item.valorUnitario);
+
+              // Validação (apenas a LINHA inválida recebe a classe 'info_invalida')
+              const quantidadeProduto = Number(item.quantidade);
+              const valorProduto = Number(item.valorUnitario);
+              const qtdInvalida = !Number.isFinite(quantidadeProduto) || quantidadeProduto < 1;
+              const valorInvalido = !Number.isFinite(valorProduto) || valorProduto < 1;
+              const linhaInvalida = qtdInvalida || valorInvalido;
+
               return (
-                <tr className="cliente" key={item.id}>
+                // Quando inválido, a linha recebe 'info_invalida' (CSS já deixa a linha vermelha)
+                <tr className={`cliente${linhaInvalida ? " info_invalida" : ""}`} key={item.id}>
                   <td className="nome">{item.nome}</td>
                   <td className="produto">{item.produto}</td>
-                  <td className="qtde">{item.quantidade}</td>
-                  <td className="unitario">{formatBRL(item.valorUnitario)}</td>
+
+                  {/* Quantidade: mostra mensagem apenas nesta célula se for inválida (sem pintar a coluna inteira) */}
+                  <td className="qtde">
+                    {qtdInvalida ? "Quantidade inválida" : item.quantidade}
+                  </td>
+
+                  {/* Valor unitário: mostra mensagem apenas nesta célula se for inválido */}
+                  <td className="unitario">
+                    {valorInvalido ? "Unidade inválida" : formatBRL(item.valorUnitario)}
+                  </td>
+
+                  {/* Total formatado; se inválido, formatBRL trata NaN como 0 */}
                   <td className="total">{formatBRL(total)}</td>
                 </tr>
               );
@@ -160,23 +168,23 @@ export default function Encomendas() {
         </tbody>
       </table>
 
+      {/* Botão para buscar da API */}
       <button
         id="api-encomenda"
         className="botao enviar"
         type="button"
-        onClick={() => BuscarDadosDaApi()}
+        onClick={BuscarDadosDaApi}
         disabled={carregandoAPI}
         style={{ marginTop: 12 }}
       >
         {carregandoAPI ? "Buscando..." : "Buscar da API"}
       </button>
 
-      {erroAPI && (
-        <div style={{ color: "red", marginTop: 8 }}>{erroAPI}</div>
-      )}
+      {/* Exibição de erro da API */}
+      {erroAPI && <div style={{ color: "red", marginTop: 8 }}>{erroAPI}</div>}
 
       {/* Título */}
-      <ul className="encomendas-titulo" style={{ marginTop: 24 }}>
+      <ul className="encomendas-titulo">
         <li className="encomendas-item">Adicionar Encomendas</li>
       </ul>
 

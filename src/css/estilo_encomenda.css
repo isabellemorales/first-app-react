@@ -1,145 +1,148 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
-
-/*Título*/
-.encomendas-titulo{
-    font-size: 40px;
-    font-weight: bold;
-    color: rgb(255, 255, 255);
-    list-style: none;
+/* ENCOMENDAS */
+.encomendas-titulo {
+  clear: left;
+  text-align: center;
+  font-size: 32px;
+  color: #d4a373;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-/*Texto dos Contatos*/
-.texto-encomendas{
-    padding-left: 5%;
-    color: white;
-}
-
-.titulo_h3 {
-    padding-left: 3%;
-    color: white;
-}
-
-/*Estilização da Tabela de Encomendas*/
 table{
-    width: 100%;
-    margin-bottom: 2%;
-    table-layout: fixed;
-    margin: 20px;
+  width: 100%;
+  margin-bottom: 2%;
+  table-layout: fixed;
+  border-collapse: collapse; /* Evita bordas duplas na tabela */
+}
+
+.tabela-clientes{
+  font-weight: bold;
+  background-color: white;
+  color: black;
+}
+
+td {
+  border: 2px solid black;
+  text-align: center;
+  padding: 10px; /* Dá respiro às células */
 }
 
 th{
-    font-weight: bold;
-    background-color: white;
+  padding: 10px;
+  margin: 0;
+  border: 2px solid black;
+  background-color: rgb(40, 40, 77);
+  color: white;
+  text-align: center;
 }
 
-/*Separei o td pra só ele ficar branco*/
-td
-{
-    color: white;
+/* Linha inválida: aplica vermelho apenas na linha do item inválido */
+tr.info_invalida td {
+  background-color: #ffefef; /* fundo vermelho claro */
+  color: #b00020;            /* texto vermelho escuro */
 }
 
-td, th{
-    padding: 10px;
-    margin: 0;
-    border: 1px solid aliceblue;
-    text-align: center;
+/* Botão API */
+.bto-principalAPI{
+  width: 17%;
+  padding: 15px 0;
+  margin-bottom: 20px;
+  margin-left: 41.5%;
+  background: rgba(2, 13, 64, 0.733);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s all;
 }
 
-/*Estilização das informações inválidas*/
-.info_invalida {
-    background-color: red;
-    color: white;
+.bto-principalAPI:hover {
+  background: rgba(2, 13, 64, 0.85); /* Unificado p/ azul escuro */
+  transform: scale(1.05);
+  transition: 0.3s ease;   
 }
 
-/*Formulário*/
-form{
-    margin-top: 40px;
-    margin-left: 20%;
-    margin-bottom: 0;
-}
-
-form label, form legend {
-    display: block;
-    font-size: 20px;
-    margin: 0 0 10px;
-    color: white;
-}
-
-fieldset{
-    width: 75%;
-    padding-left: 5%;
-    margin-bottom: 2%;
-    padding-right: 5%;
-    color: white;
-}
-
-input, textarea, select {
+/* Botão  add encomenda */
+.enviar {
   width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  background-color: #111;
+  padding: 12px;
+  background: #0d0241;
   color: #fff;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
-input[type="text"]:focus, 
-input[type="email"]:focus, 
-input[type="tel"]:focus, 
-input[type="number"]:focus, 
-textarea:focus, select:focus{
-  border-color: #ffcd61; /* cor do destaque */
-  outline: none;
-  background-color: #1a1a1a;
-  box-shadow: 0 0 5px #ffcd61;
+.enviar:hover {
+  background: rgba(3, 2, 60, 0.85);
+  transform: scale(1.05);
+  transition: 0.3s ease;   
 }
 
-.botao_add {
-    display: block;
-    width:30%;
-    padding: 15px 0;
-    margin-bottom: 2%;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    transition: Is all;
-    cursor: pointer;
-    margin-top: 30px;
+/* Caso queira marcar apenas a célula (não usado no React atual, mas mantido) */
+.unitarioInvalido{
+  background-color: red;
+  color: white;
 }
 
-.botao_add:hover {
-    background: #ffcd61;
-    /*transform: scale(1.2);*/
-}
-
-/*Estilização da exclusão da encomenda*/
+/* estilização da exclusão da encomenda */
 .fadeOut{
-    opacity: 0;
-    transition: 1s;
+  opacity: 0;
+  transition: 1s;
 }
-/*Estilização do buscar*/
+
+/* Estilização filtro */
 #buscar{
-    width: 19.5%;
-    height: 35px;
-    margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #0d0241;
+  background-color: #15033c;
+  width: 400px;
+  margin: 45px auto 25px;
+  border-radius: 20px;
+  padding: 8px 12px;
+  color: white;
+  height: 30px;
 }
 
-#buscar:focus, textarea:focus, select:focus{
-  border-color: #ffcd61; /* cor do destaque */
+.busca_encomenda{
+  width: 100%;
+  padding: 8px;
+  border: none;
   outline: none;
-  background-color: #1a1a1a;
-  box-shadow: 0 0 5px #ffcd61;
+  background-color: transparent;
+  font-size: 16px;
 }
 
-.Buscar{
-    color: white;
-    margin: 2px;
-    margin-left: 5px;
+.TextBusca{
+  margin-left:5px;
+  margin-bottom: 5px;
 }
 
 .invisivel{
-    display: none;
+  display: none;
+}
+
+fieldset {
+  background: transparent;
+  padding: 20px;
+  margin-right: 15%;
+  border-radius: 8px;
+  border: 2px solid rgba(2, 13, 64, 0.733);
+  color: rgba(2, 13, 64, 0.733);
+}
+
+fieldset legend {
+  padding: 0 15px;
+  color: #15033c;
+  font-weight: bold;
+  font-size: 22px;
 }
