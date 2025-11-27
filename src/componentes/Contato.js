@@ -16,7 +16,7 @@ function Contatos() {
 
     return (
         <main>
-            {/* Título (mantém a estrutura ul/li para casar com o CSS) */}
+            {/* Título (mantém a estrutura ul/li) */}
             <ul className="contatos-titulo">
                 <li className="contatos-item">Contatos</li>
             </ul>
@@ -39,7 +39,7 @@ function Contatos() {
                     Estamos à disposição para te ajudar :)
                 </p>
 
-                {/* Form principal (ids/classes iguais ao HTML) */}
+                {/* Form principal */}
                 <form id="frmContato" onSubmit={handleSubmit}>
                     <fieldset>
                         <legend> Dados Pessoais </legend>
